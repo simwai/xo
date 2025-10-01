@@ -114,24 +114,47 @@ You can configure XO options by creating an `xo.config.js` or an `xo.config.ts` 
 
 XO exports the types `FlatXoConfig`, `XoConfigItem`, and other types for you to get TypeScript validation on your config files.
 
-examples:
-`xo.config.js`
+#### JavaScript (xo.config.js)
 
 ```js
 /** @type {import('xo').FlatXoConfig} */
-const xoConfig = [...]
+const xoConfig = [
+  // your config here
+]
+
+export default xoConfig;
 ```
 
-`xo.config.ts`
+#### TypeScript (xo.config.ts)
+
+**Option 1: Type annotation (Recommended)**
 
 ```ts
-import {type FlatXoConfig} from 'xo';
+import type {FlatXoConfig} from 'xo';
 
-const xoConfig: FlatXoConfig = [...]
+const config: FlatXoConfig = [
+  // your config here
+]
+
+export default config;
 ```
 
+**Option 2: Inline `satisfies` (Requires additional setup)**
+
 ```ts
-export default [...] satisfies import('xo').FlatXoConfig
+export default [
+  // your config here
+] satisfies import('xo').FlatXoConfig;
+```
+
+> Tip: If you use the inline `satisfies` pattern and encounter the TypeScript error `TS2742: The inferred type cannot be named without a reference...`, add `"baseUrl": "."` to your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "."
+  }
+}
 ```
 
 ### files
